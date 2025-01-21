@@ -1,0 +1,30 @@
+meta:
+  name: keith-galli-brand.yml
+  links:
+    youtube: https://youtube.com/@KeithGalli
+    github: https://github.com/KeithGalli
+
+logo:
+  images:
+    icon-color: logos/kg-logo.svg
+    wide-color: logos/kg-logo.svg
+    tall-color: logos/kg-logo.svg
+  small: icon-color
+  medium: wide-color
+  large: tall-color
+
+color:
+  palette:
+    tech-green: "#00b894"
+    deep-space: "#2d3436"
+    mint-hint: "#55efc4"
+    ghost-white: "#f5f6fa"
+    dark-gray: "#1f2937"    # Darker background color
+    silver: "#e5e7eb"       # Lighter foreground color for better contrast
+  primary: tech-green
+  success: tech-green
+  warning: mint-hint
+  danger: deep-space
+  background: dark-gray
+  foreground: silver
+

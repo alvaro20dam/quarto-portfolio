@@ -65,6 +65,10 @@ website:
         href: "https://www.linkedin.com/in/keithgalli/"
 
 
-format:
-  html:
-    theme: solar
+# format:
+#   html:
+#     theme: solar
+
+brand: slideshows/_brand.yml
+
+
