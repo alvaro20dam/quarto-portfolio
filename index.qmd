@@ -1,0 +1,10 @@
+---
+title: "Quarto in Python Video Series"
+format: html
+output: false
+---
+
+### Overview
+
+Over the past few months Posit & I have teamed up to create a series of videos on using Quarto with Python. Below is a list of the videos in the series.
+
