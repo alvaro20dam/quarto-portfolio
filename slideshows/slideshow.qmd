@@ -1,0 +1,26 @@
+---
+title: "My Cool Quarto Slideshow"
+format: revealjs
+author: "Keith Galli"
+---
+
+# Section 1
+
+## Slide 1
+
+Insert some more text
+
+## Slide 2
+
+Insert some random text als;kdj;alsdjf;alsdja;sldjk
+
+## Slide 3
+
+```{python}
+#| echo: True
+#| output-location: column
+import matplotlib.pyplot as plt
+
+plt.plot([1, 2, 3, 4])
+
+```

@@ -1,0 +1,605 @@
+---
+title: "Quarto Presentations"
+subtitle: "Create beautiful interactive slide decks with Reveal.js"
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    css: styles.css
+    footer: '[https://quarto.org](https://quarto.org)'
+brand: _brand.yml
+width: 1500
+scrollable: true
+---
+
+## Hello, There
+
+This presentation will show you examples of what you can do with Quarto and [Reveal.js](https://revealjs.com), including:
+
+-   Presenting code and LaTeX equations
+-   Including computations in slide output
+-   Image, video, and iframe backgrounds
+-   Fancy transitions and animations
+-   Activating scroll view
+
+...and much more
+
+## Pretty Code {auto-animate="true"}
+
+-   Over 20 syntax highlighting themes available
+-   Default theme optimized for accessibility
+
+```{.python}
+import random
+
+def pick_teams(players: list) -> dict:
+    pass
+
+names = ["Alice", "Bob", "Carol", "Dave"]
+teams = pick_teams(names)
+```
+
+::: footer
+Learn more: [Syntax Highlighting](https://quarto.org/docs/output-formats/html-code.html#highlighting)
+:::
+
+## Code Animations {auto-animate="true"}
+
+-   Over 20 syntax highlighting themes available
+-   Default theme optimized for accessibility
+
+```{.python}
+import random
+
+def pick_teams(players: list) -> dict:
+    random.shuffle(players)  # Shuffle the list randomly once
+    mid = len(players) // 2
+    team_a = players[:mid]
+    team_b = players[mid:]
+    return {"Team A": team_a, "Team B": team_b}
+
+names = ["Alice", "Bob", "Carol", "Dave"]
+teams = pick_teams(names)
+print(teams)
+```
+
+::: footer
+Learn more: [Code Animations](https://quarto.org/docs/presentations/revealjs/advanced.html#code-animations)
+:::
+
+## Line Highlighting
+
+-   Highlight specific lines for emphasis
+-   Incrementally highlight additional lines
+
+``` {.python code-line-numbers="4-5|7|10|1-10"}
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+::: footer
+Learn more: [Line Highlighting](https://quarto.org/docs/presentations/revealjs/#line-highlighting)
+:::
+
+## Data Visualization Section {background="#43464B" .center}
+
+The following slides showcase various Python visualization libraries and techniques
+
+## Basic Matplotlib Example
+
+```{python}
+#| output-location: slide
+#| echo: true
+#| fig-width: 10
+#| fig-height: 4.5
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the dataset
+tips = sns.load_dataset("tips")
+
+# Create the scatter plot
+sns.scatterplot(data=tips, x="total_bill", y="tip", hue="time")
+plt.title("Tips vs Total Bill")
+plt.show()
+```
+
+## Interactive Plotting with Plotly {.smaller}
+
+```{python}
+#| echo: true
+#| output-location: slide
+import plotly.express as px
+import pandas as pd
+
+# Load the dataset
+df = px.data.gapminder().query("year == 2007")
+
+# Create an interactive scatter plot
+fig = px.scatter(df, x="gdpPercap", y="lifeExp", 
+                 size="pop", color="continent",
+                 hover_name="country", log_x=True,
+                 size_max=60)
+fig
+```
+
+## Advanced Matplotlib Visualization {.smaller}
+
+```{python}
+#| echo: true
+#| output-location: column
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate data
+x = np.linspace(0, 10, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+
+plt.style.use('seaborn-v0_8')
+fig, ax = plt.subplots(figsize=(10, 6))
+
+ax.plot(x, y1, label='Sin(x)', color='blue', linewidth=2)
+ax.plot(x, y2, label='Cos(x)', color='red', linewidth=2)
+ax.fill_between(x, y1, y2, alpha=0.2)
+
+ax.set_title('Trigonometric Functions')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.legend()
+ax.grid(True)
+
+plt.show()
+```
+
+## Seaborn Advanced Visualization {.smaller}
+
+```{python}
+#| echo: true
+#| output-location: slide
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.style.use('seaborn-v0_8')
+
+penguins = sns.load_dataset("penguins")
+
+# Create a figure with subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+
+# Plot 1: Violin plot
+sns.violinplot(data=penguins, x="species", y="body_mass_g", ax=ax1)
+ax1.set_title("Body Mass Distribution by Species")
+
+# Plot 2: Box plot
+sns.boxplot(data=penguins, x="species", y="flipper_length_mm", ax=ax2)
+ax2.set_title("Flipper Length Distribution by Species")
+
+plt.tight_layout()
+plt.show()
+```
+
+## Data Management Section {background="#43464B" .center}
+
+The following slides demonstrate data handling and presentation
+
+## Tables Example (Simple DataFrame)
+
+```{python}
+df = pd.DataFrame({
+    'A': [1, 2, 3, 4],
+    'B': [5, 6, 7, 8],
+    'C': [9, 10, 11, 12]
+})
+
+df.index = ['w', 'x', 'y', 'z']
+
+df
+```
+
+## Tables Example (Great Tables) {.smaller}
+
+```{python}
+#| output-location: slide
+#| echo: true
+#| fig-align: left
+from great_tables import GT, html
+from great_tables.data import sza
+import polars as pl
+import polars.selectors as cs
+
+sza_pivot = (
+    pl.from_pandas(sza)
+    .filter((pl.col("latitude") == "20") & (pl.col("tst") <= "1200"))
+    .select(pl.col("*").exclude("latitude"))
+    .drop_nulls()
+    .pivot(values="sza", index="month", on="tst", sort_columns=True)
+)
+
+table = (
+    GT(sza_pivot, rowname_col="month")
+    .data_color(
+        domain=[90, 0],
+        palette=["rebeccapurple", "white", "orange"],
+        na_color="white",
+    )
+    .tab_header(
+        title="Solar Zenith Angles from 05:30 to 12:00",
+        subtitle=html("Average monthly values at latitude of 20&deg;N."),
+    )
+    .sub_missing(missing_text="")
+)
+
+table
+```
+
+## Column Layout with Data {.smaller}
+
+Arrange content into columns of varying widths:
+
+:::: columns
+::: {.column width="35%"}
+#### Penguins Dataset Analysis
+
+The Palmer Penguins dataset contains size measurements for three penguin species observed on three islands in the Palmer Archipelago, Antarctica.
+:::
+
+::: {.column width="3%"}
+:::
+
+::: {.column width="62%"}
+```{python}
+#| output: asis
+import pandas as pd
+import seaborn as sns
+
+# Load the penguins dataset
+penguins = sns.load_dataset("penguins")
+penguins
+```
+:::
+::::
+
+## Mathematical Content {background="#43464B" .center}
+
+The following slides showcase mathematical and LaTeX capabilities
+
+## LaTeX Equations
+
+[MathJax](https://www.mathjax.org/) rendering of equations to HTML
+
+::: columns
+::: {.column width="40%"}
+``` tex
+\begin{gather*}
+a_1=b_1+c_1\\
+a_2=b_2+c_2-d_2+e_2
+\end{gather*}
+
+\begin{align}
+a_{11}& =b_{11}&
+  a_{12}& =b_{12}\\
+a_{21}& =b_{21}&
+  a_{22}& =b_{22}+c_{22}
+\end{align}
+```
+:::
+
+::: {.column width="60%"}
+```{=tex}
+\begin{gather*}
+a_1=b_1+c_1\\
+a_2=b_2+c_2-d_2+e_2
+\end{gather*}
+```
+```{=tex}
+\begin{align}
+a_{11}& =b_{11}&
+  a_{12}& =b_{12}\\
+a_{21}& =b_{21}&
+  a_{22}& =b_{22}+c_{22}
+\end{align}
+```
+:::
+:::
+
+## Presentation Features {background="#43464B" .center}
+
+The following slides demonstrate Reveal.js presentation capabilities
+
+## Incremental Lists
+
+Lists can optionally be displayed incrementally:
+
+::: incremental
+-   First item
+-   Second item
+-   Third item
+:::
+
+. . .
+
+<br/> Insert pauses to make other types of content display incrementally.
+
+## Fragments
+
+Incremental text display and animation with fragments:
+
+<br/>
+
+::: {.fragment .fade-in}
+Fade in
+:::
+
+::: {.fragment .fade-up}
+Slide up while fading in
+:::
+
+::: {.fragment .fade-left}
+Slide left while fading in
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+Fade in then semi out
+:::
+
+. . .
+
+::: {.fragment .strike}
+Strike
+:::
+
+::: {.fragment .highlight-red}
+Highlight red
+:::
+
+## Slide Backgrounds {background="#2188ab"}
+
+Set the `background` attribute on a slide to change the background color (all CSS color formats are supported).
+
+Different background transitions are available via the `background-transition` option.
+
+::: footer
+Learn more: [Slide Backgrounds](https://quarto.org/docs/presentations/revealjs/#color-backgrounds)
+:::
+
+## Media Backgrounds {background="#43464B" background-image="images/milky-way.jpeg"}
+
+You can also use the following as a slide background:
+
+-   An image: `background-image`
+
+-   A video: `background-video`
+
+-   An iframe: `background-iframe`
+
+::: footer
+Learn more: [Media Backgrounds](https://quarto.org/docs/presentations/revealjs/#image-backgrounds)
+:::
+
+## Absolute Position
+
+Position images or other elements at precise locations
+
+![](images/cats/kitten-400-350.jpeg){.absolute .fragment top="170" left="30" width="400" height="400" fragment-index=4}
+
+![](images/cats/kitten-450-250.jpeg){.absolute .fragment top="150" right="80" width="450" fragment-index=3}
+
+![](images/cats/kitten-300-200.jpeg){.absolute .fragment bottom="110" right="130" width="300" fragment-index=1}
+
+::: footer
+Learn more: [Absolute Position](https://quarto.org/docs/presentations/revealjs/advanced.html#absolute-position)
+:::
+
+## Auto-Animate {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+Automatically animate matching elements across slides with Auto-Animate.
+
+::: r-hstack
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; width: 200px; height: 150px; margin: 10px;"}
+:::
+
+::: {data-id="box2" auto-animate-delay="0.1" style="background: #3fb618; width: 200px; height: 150px; margin: 10px;"}
+:::
+
+::: {data-id="box3" auto-animate-delay="0.2" style="background: #e83e8c; width: 200px; height: 150px; margin: 10px;"}
+:::
+:::
+
+::: footer
+Learn more: [Auto-Animate](https://quarto.org/docs/presentations/revealjs/advanced.html#auto-animate)
+:::
+
+## Auto-Animate {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+Automatically animate matching elements across slides with Auto-Animate.
+
+::: r-stack
+::: {data-id="box1" style="background: #2780e3; width: 350px; height: 350px; border-radius: 200px;"}
+:::
+
+::: {data-id="box2" style="background: #3fb618; width: 250px; height: 250px; border-radius: 200px;"}
+:::
+
+::: {data-id="box3" style="background: #e83e8c; width: 150px; height: 150px; border-radius: 200px;"}
+:::
+:::
+
+::: footer
+Learn more: [Auto-Animate](https://quarto.org/docs/presentations/revealjs/advanced.html#auto-animate)
+:::
+
+## Slide Transitions {.smaller}
+
+The next few slides will transition using the `slide` transition
+
+| Transition | Description                                                            |
+|------------|------------------------------------------------------------------------|
+| `none`     | No transition (default, switch instantly)                              |
+| `fade`     | Cross fade                                                             |
+| `slide`    | Slide horizontally                                                     |
+| `convex`   | Slide at a convex angle                                                |
+| `concave`  | Slide at a concave angle                                               |
+| `zoom`     | Scale the incoming slide so it grows in from the center of the screen. |
+
+::: footer
+Learn more: [Slide Transitions](https://quarto.org/docs/presentations/revealjs/advanced.html#slide-transitions)
+:::
+
+## Tabsets {.smaller .scrollable transition="slide"}
+
+::: panel-tabset
+### Plot
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the built-in mtcars dataset from seaborn
+mtcars = sns.load_dataset("mpg")
+
+# Create the scatter plot with regression line
+sns.lmplot(
+    data=mtcars,
+    x="horsepower", 
+    y="mpg",
+    hue="origin",
+    height=5
+)
+plt.show()
+```
+
+### Data
+
+```{python}
+import pandas as pd
+
+# Load and display the dataset
+mtcars = sns.load_dataset("mpg")
+print(mtcars.to_markdown())
+```
+:::
+
+::: footer
+Learn more: [Tabsets](https://quarto.org/docs/presentations/revealjs/#tabsets)
+:::
+
+## Interactive Slides {.smaller transition="slide"}
+
+Include Jupyter widgets and htmlwidgets in your presentations
+
+```{python}
+import folium
+
+# Create a map centered on the birthplace of Python
+m = folium.Map(
+    location=[44.0165, -123.0235],  # Eugene, Oregon - where Python was created
+    zoom_start=12
+)
+
+# Add a marker
+folium.Marker(
+    [44.0165, -123.0235],
+    popup="Birthplace of Python"
+).add_to(m)
+
+m
+```
+
+::: footer
+Learn more: [Jupyter widgets](https://quarto.org/docs/interactive/widgets/jupyter.html), [htmlwidgets](https://quarto.org/docs/interactive/widgets/htmlwidgets.html)
+:::
+
+## Interactive Slides {.smaller transition="concave"}
+
+Test Test
+
+## Interactive Slides {.smaller transition="zoom"}
+
+Test Test
+
+## Another one {.smaller transition="fade"}
+
+Some different text here
+
+## Interactive Slides {.smaller transition="convex"}
+
+One more slide transition x_x
+
+
+## Point of View
+
+press {{< kbd o >}} to toggle overview mode:
+
+![](images/overview-mode.png){.border}
+
+Hold down the {{< kbd Alt linux=Ctrl >}} and click on any element to zoom towards it---try it now on this slide.
+
+
+## Scroll View {#scroll-view}
+
+Press {{< kbd r >}} (or use the tools in presentation menu ![](../images/navigation-menu-icon.png){style="padding-bottom: 1px; margin: 0" width="0.5em" height="0.5em"}) to open scroll view
+
+Try it now on this slide --- You'll see a scroll bar on the right and you can scroll down the presentation using your mouse.
+
+Scroll view behavior can be configured using `scroll-view` configuration. 
+
+
+## Preview Links
+
+Navigate to hyperlinks without disrupting the flow of your presentation.
+
+Use the `preview-links` option to open links in an iframe on top of your slides. Try clicking the link below for a demonstration:
+
+::: {style="text-align: center; margin-top: 1em"}
+[Python Documentation](https://docs.python.org/3/){preview-link="true" style="text-align: center"}
+:::
+
+## Interactive Features
+
+Key features for presenting:
+
+- Press {{< kbd m >}} to toggle the slide menu
+- Press {{< kbd o >}} to toggle overview mode
+- Press {{< kbd s >}} to view speaker notes
+- Press {{< kbd g >}} to goto a slide
+- Press {{< kbd b >}} for black screen
+- Press {{< kbd c >}} to toggle chalkboard
+
+## Chalkboard {chalkboard-buttons="true"}
+
+::: {style="margin-bottom: 0.9em;"}
+Free form drawing and slide annotations
+:::
+
+::: {layout="[1, 20]"}
+![](images/presentation-chalkboard.png){width="41"}
+
+Use the chalkboard button at the bottom left of the slide to toggle the chalkboard.
+:::
+
+::: {layout="[1, 20]"}
+![](images/presentation-notes-canvas.png){width="41"}
+
+Use the notes canvas button at the bottom left of the slide to toggle drawing on top of the current slide.
+:::
+
+## And More...
+
+-   [Touch](https://quarto.org/docs/presentations/revealjs/advanced.html#touch-navigation) optimized (presentations look great on mobile, swipe to navigate slides)
+-   [Footer & Logo](https://quarto.org/docs/presentations/revealjs/#footer-logo) (optionally specify custom footer per-slide)
+-   [Auto-Slide](https://quarto.org/docs/presentations/revealjs/presenting.html#auto-slide) (step through slides automatically)
+-   [Multiplex](https://quarto.org/docs/presentations/revealjs/presenting.html#multiplex) (allow audience to follow along on their devices)
+
+::: footer
+Learn more: [Quarto Presentations](https://quarto.org/docs/presentations/revealjs/)
+:::

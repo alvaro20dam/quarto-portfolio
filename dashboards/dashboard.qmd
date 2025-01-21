@@ -1,0 +1,144 @@
+---
+title: 'Rental Dashboard'
+format: dashboard
+css: style.css
+embed-resources: true
+---
+
+```{python}
+import folium
+import pandas as pd
+import matplotlib.pyplot as plt
+import itables
+import itables.options as opt
+from data_helpers import load_listings, load_reviews
+
+listings = load_listings()
+reviews = load_reviews()
+
+reviews_joined = reviews.merge(listings, left_on='listing_id', right_on='id')
+
+COLOR = '#6C757D'
+```
+
+# Overview
+
+## High Level Stats {height=25%}
+
+```{python}
+#| content: valuebox
+#| title: "Number of Listings"
+dict(
+  icon = "house",
+  color = "secondary",
+  value = len(listings)
+)
+```
+
+```{python}
+#| content: valuebox
+#| title: "Number of Reviews"
+dict(
+  icon = "person",
+  color = "secondary",
+  value = len(reviews)
+)
+```
+
+```{python}
+#| content: valuebox
+#| title: "Average Review Rating"
+dict(
+  icon = "star",
+  color = "secondary",
+  value = f"{reviews['overall'].mean():.2f}"
+)
+```
+
+## Plots
+
+```{python}
+import plotly.express as px
+import calendar
+
+# Calculate the average for each month across all years
+monthly_averages = reviews_joined.groupby(['month', 'neighborhood'])['overall'].mean().reset_index()
+
+# Add month names
+monthly_averages['month_name'] = monthly_averages['month'].apply(lambda x: calendar.month_abbr[x])
+
+# Create the plotly figure
+fig = px.line(
+    monthly_averages,
+    x='month_name',
+    y='overall',
+    color='neighborhood',
+    template='simple_white'
+)
+
+# Customize the figure
+fig.update_traces(
+    line_width=6
+)
+
+fig.update_layout(
+    showlegend=False,
+)
+
+# Set proper month order
+fig.update_xaxes(categoryorder='array', 
+                 categoryarray=[calendar.month_abbr[i] for i in range(1, 13)])
+
+fig.show();
+```
+
+```{python}
+rating_counts = reviews['overall'].value_counts().sort_index()
+plt.bar(rating_counts.index, rating_counts.values, color=COLOR)
+```
+
+## Map of Listings
+
+```{python}
+
+# Create a map centered on a specific location
+map_center = [listings['latitude'].mean(), listings['longitude'].mean()]  # Boston
+my_map = folium.Map(location=map_center, zoom_start=12, height=500)
+
+# Add a marker to the map
+for index, row in listings.iterrows():
+    tooltip = f"""
+        <h5>Name: {row['name']} <br/>
+        Rating: {row['review_scores_rating']} <br/>
+        Cost: {row['price']}/night </h5>
+        """
+
+    _ = folium.Marker(
+        location=[row['latitude'], row['longitude']],
+        tooltip=tooltip,
+        icon=folium.Icon(color='lightgray', icon='home')
+    ).add_to(my_map)
+
+my_map
+```
+
+# Listing Details
+
+## Listing Table
+```{python}
+opt.classes = ['wrap-text']
+
+display_cols = ['name', 'review_scores_accuracy', 'review_scores_cleanliness', 'review_scores_checkin',
+               'review_scores_communication', 'review_scores_location', 'review_scores_value', 'price']
+
+itables.show(listings[display_cols])
+```
+
+# Recent Reviews
+
+## Review Table
+
+```{python}
+output_df = reviews_joined[['name', 'date', 'comments', 'overall']].reset_index(drop=True)
+itables.show(output_df)
+```

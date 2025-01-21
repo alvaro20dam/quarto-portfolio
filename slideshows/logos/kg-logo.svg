@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="#2d3436"/>
+  
+  <!-- K letter -->
+  <path d="M60 40 L60 160 M60 100 L110 40 M60 100 L110 160" 
+        stroke="#00b894" 
+        stroke-width="12" 
+        stroke-linecap="round"
+        fill="none"/>
+  
+  <!-- G letter -->
+  <path d="M140 70 A40 40 0 1 0 140 130 L140 100 L120 100"
+        stroke="#00b894" 
+        stroke-width="12" 
+        stroke-linecap="round"
+        fill="none"/>
+        
+  <!-- Code bracket accents -->
+  <path d="M30 80 L45 95 L30 110" 
+        stroke="#00b894" 
+        stroke-width="6" 
+        stroke-linecap="round"
+        fill="none"/>
+  <path d="M170 80 L155 95 L170 110" 
+        stroke="#00b894" 
+        stroke-width="6" 
+        stroke-linecap="round"
+        fill="none"/>
+</svg>
