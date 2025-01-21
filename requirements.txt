@@ -1,0 +1,14 @@
+faicons
+folium
+imblearn
+itables==2.0.0
+jupyter
+matplotlib
+numpy
+pandas
+plotly
+scikit-learn
+seaborn
+shiny
+wordcloud
+xgboost
