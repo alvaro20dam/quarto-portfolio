@@ -1,5 +1,6 @@
 faicons
 folium
+great_tables
 imblearn
 itables==2.0.0
 jupyter
