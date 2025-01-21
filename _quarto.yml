@@ -2,10 +2,10 @@ project:
   type: website
 
 website:
-  favicon: "./slideshows/logos/kg-logo.svg"
+  favicon: "./logos/kg-logo.svg"
   navbar:
-    title: "Quarto"
-    logo: "./slideshows/logos/kg-logo.svg"
+    title: False
+    logo: "./logos/quarto.png"
     left:
       - href: index.qmd
         text: Home
@@ -43,7 +43,7 @@ website:
       - section: "Quarto Crash Course"
         collapsed: true
         contents: quarto-crash-course/*
-      - section: " # Data Visualization"
+      - section: " Data Visualization"
         href: index.qmd
         contents:
           - section: "Hello there"
@@ -51,6 +51,8 @@ website:
           - section: "YHo"
             contents:
               - test.qmd
+      - section: "Everything Else"
+        contents: "*"
 
   page-footer:
     left: "© 2025, Keith Galli"

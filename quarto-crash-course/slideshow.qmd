@@ -1,4 +1,4 @@
-":---
+---
 format: revealjs
 title: "Slideshow Example"
 echo: true
