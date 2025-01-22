@@ -2,7 +2,45 @@ project:
   type: website
 
 website:
+  favicon: logos/kg-logo.svg
+  title: "Keith Galli's Quarto Portfolio"
   navbar:
     left:
       - href: index.qmd
         text: Home
+      - text: YouTube Tutorials
+        menu:
+          - text: "Video 1"
+            target: _blank
+            href: https://youtu.be/_VKxTPWDhA4?si=1xlU6S7VILj8Fu4O
+    tools:
+      - icon: github
+        href: https://github.com/keithgalli/quarto-portfolio
+      - icon: youtube
+        href: https://www.youtube.com/@PositPBC
+
+
+  sidebar:
+    style: "docked"
+    collapse-level: 1
+    border: false
+    contents:
+      - text: "Introduction"
+        href: index.qmd
+      - "---"
+      - section: "Quarto Crash Course"
+        href: quarto-crash-course/about.md
+        contents: "quarto-crash-course/*.qmd"
+      - section: "Parameterized Reports"
+        href: parameterized-reporting/about.md
+        contents: "parameterized-reporting/*.qmd"
+
+  page-footer: 
+    left: "© 2025, Keith Galli"
+    right:
+      - icon: github
+        href: https://github.com/keithgalli/quarto-portfolio
+      - icon: youtube
+        href: https://www.youtube.com/@PositPBC
+
+brand: _brand.yml
