@@ -4,7 +4,27 @@ format: html
 output: false
 ---
 
-### Overview
+## Overview
 
 Over the past few months Posit & I have teamed up to create a series of videos on using Quarto with Python. Below is a list of the videos in the series.
+
+### [Quarto Crash Course](./quarto-crash-course/about.html)
+
+The first video focused on the basics of Quarto and how to get started with it. This video touches on a lot of the key features of Quarto and how to use them.
+
+### [Parameterized Reports](./parameterized-reporting/about.html)
+
+This video focuses on how you can make use of parameters in your Quarto documents to create dynamic reports. Leveraging this technique you can create hundreds of reports from a single Quarto document.
+
+### [Jupyter Notebooks to Analytics Reports](./analytics-reports/about.html)
+
+This video shows how you can add Quarto syntax to your existing Jupyter notebooks to convert them into polished reports.
+
+### [Dashboards with Quarto](./dashboards/about.html)
+
+This video shows how you can create interactive dashboards using Quarto. We use Airbnb data to create a real-world dashboard.
+
+### [Slideshows with Quarto](./slideshows/about.html)
+
+This video shows how you can create interactive slideshows using Quarto & Python code. 
 

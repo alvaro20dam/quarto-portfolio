@@ -41,18 +41,20 @@ website:
         href: index.qmd
       - '---'
       - section: "Quarto Crash Course"
-        collapsed: true
-        contents: quarto-crash-course/*
-      - section: " Data Visualization"
-        href: index.qmd
-        contents:
-          - section: "Hello there"
-            contents:
-          - section: "YHo"
-            contents:
-              - test.qmd
-      - section: "Everything Else"
-        contents: "*"
+        href: quarto-crash-course/about.md
+        contents: quarto-crash-course/*.qmd
+      - section: "Parameterized Reports"
+        href: parameterized-reporting/about.md
+        contents: parameterized-reporting/*.qmd
+      - section: "Analytics Reports"
+        href: analytics-reports/about.md
+        contents: analytics-reports/*.qmd
+      - section: "Dashboards"
+        href: dashboards/about.md
+        contents: dashboards/*.qmd
+      - section: "Slideshows"
+        href: slideshows/about.md
+        contents: slideshows/*.qmd
 
   page-footer:
     left: "© 2025, Keith Galli"
@@ -64,11 +66,8 @@ website:
       - icon: "linkedin"
         href: "https://www.linkedin.com/in/keithgalli/"
 
+# brand: false
 
 # format:
 #   html:
 #     theme: solar
-
-brand: slideshows/_brand.yml
-
-
