@@ -34,6 +34,15 @@ website:
       - section: "Parameterized Reports"
         href: parameterized-reporting/about.md
         contents: "parameterized-reporting/*.qmd"
+      - section: "Jupyter to Analytics Report"
+        href: analytics-reports/about.md
+        contents: "analytics-reports/*.qmd"
+      - section: "Dashboards"
+        href: dashboards/about.md
+        contents: "dashboards/*.qmd"
+      - section: "Slideshows"
+        href: slideshows/about.md
+        contents: "slideshows/*.qmd"
 
   page-footer: 
     left: "© 2025, Keith Galli"
