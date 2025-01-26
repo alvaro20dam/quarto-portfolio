@@ -6,6 +6,12 @@
 
 This comprehensive guide demonstrates how to create engaging technical presentations using Quarto with Python code integration. Learn to build interactive slideshows that combine markdown, code execution, and dynamic visualizations.
 
+<div>
+```{=html}
+<iframe width="100%" height="475px;" src="example.html"></iframe>
+```
+</div>
+
 ## Presentation Formats
 The tutorial covers multiple output formats with a focus on reveal.js capabilities:
 - Interactive HTML presentations with reveal.js

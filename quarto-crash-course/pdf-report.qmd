@@ -1,6 +1,6 @@
 ---
 author: "Keith Galli"
-title: "Movie Data Analysis"
+title: "Movie Data Analysis (PDF)"
 format:
     pdf: default
 echo: false

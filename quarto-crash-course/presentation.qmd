@@ -1,5 +1,5 @@
 ---
-title: "Quarto Crash Course"
+title: "Quarto Crash Course Presentation"
 subtitle: "Publishing Websites, Dashboards, Documents, and More with Code!"
 author: "Keith Galli"
 date: "2024-11-05"
